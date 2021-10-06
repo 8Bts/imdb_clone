@@ -2,7 +2,14 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.1'
-
+# Use Figaro to define your environment variables
+gem 'figaro'
+# Use Carrierwave for easy uploading and Cloudinary for cloud storage
+gem 'carrierwave'
+# Web service of storing and management of media (images and videos)
+gem 'cloudinary'
+# Use Hirb to print your SQL output efficiently
+gem 'hirb'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 # Use sqlite3 as the database for Active Record
@@ -21,14 +28,19 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'rubocop', '>= 1.0', '< 2.0'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+group :production do
+  gem 'pg'
+end
+
 group :development, :test do
+  gem 'rspec-rails', '~> 5.x.x'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
@@ -45,6 +57,10 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
+  gem 'factory_bot_rails', '~> 4.0'
+  gem 'faker'
+  gem 'shoulda-matchers', '~> 3.1'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
