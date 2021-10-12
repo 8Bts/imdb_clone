@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Movie, type: :model do
   # Association test
-  it { should has_and_belongs_to_many(:categories, join_table: "categories_movies") }
+  it { should have_and_belong_to_many(:categories) }
   it { should have_many(:votes) }
 
   # Validation tests
