@@ -7,6 +7,7 @@ RSpec.describe Movie, type: :model do
 
   # Validation tests
   it { should validate_presence_of(:title) }
+  it { should validate_uniqueness_of(:title) }
   it { should validate_length_of(:title).is_at_least(1).is_at_most(32) }
 
   it { should validate_presence_of(:description) }
