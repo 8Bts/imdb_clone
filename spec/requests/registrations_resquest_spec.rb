@@ -1,0 +1,50 @@
+require 'rails_helper'
+
+RSpec.describe 'Registrations', type: :request do
+  let(:valid_user_attributes) { (create :user).attributes }
+  let(:invalid_user_attributes) { { name: 'Tom' } }
+
+  describe "GET /sign_up" do
+    before { get '/sign_up' }
+
+    it "Renders :new template for registration form" do
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe "POST /sign_up" do
+    context 'When the request is valid' do
+      let(:before_count) { User.count }
+      before { post '/sign_up', params: valid_user_attributes }
+
+      it 'Creates new User in database' do
+        expect(User.count).to_not eq(before_count)
+      end
+
+      it 'Responds with status code 201' do
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'Redirects to root path' do
+        expect(response).to redirect_to('/')
+      end
+    end
+
+    context 'When the request is invalid' do
+      let(:before_count) { User.count }
+      before { post '/sign_up', params: invalid_user_attributes }
+
+      it 'Doesn\'t create new User in database' do
+        expect(User.count).to eq(before_count)
+      end
+
+      it 'Responds with status code 422' do
+        expect(response).to have_http_status(:unproccasable_entity)
+      end
+
+      it "Renders :new template for registration form" do
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+end
