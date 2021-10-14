@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 # Use Figaro to define your environment variables
 gem 'figaro'
+# assert_template and other specs
+gem 'rails-controller-testing'
 # bcrypt for encryption of passwords
  gem 'bcrypt', '~> 3.1.7'
 # Use Carrierwave for easy uploading and Cloudinary for cloud storage
