@@ -1,0 +1,19 @@
+<div class="cont">
+  <header class="header">
+    <div class="header-cont">
+      <div class="logo"></div>
+    </div>
+  </header>
+  <main class="main">
+    <%= error_messages(model: @user, flash: flash[:alert]) %>
+    <div class="main-cont border">
+      <%= auth_form_for form_type %>
+    </div>
+    <div class="divider"></div>
+  </main>
+  <footer class="footer pb-4">
+    <div class="footer-cont">
+      <span>© 1996-2021, Amazon.com, Inc. or its affiliates </span>
+    </div>
+  </footer>
+</div>
