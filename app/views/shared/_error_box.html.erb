@@ -1,0 +1,9 @@
+<div class="error-box">
+  <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
+  <span class="problem-text ms-3">There was a problem</span>
+  <ul class="mt-3">
+    <% messages.each do |m| %>
+      <li><%= m %></li>
+    <% end %>
+  </ul>
+</div>
