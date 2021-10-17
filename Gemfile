@@ -7,7 +7,7 @@ gem 'figaro'
 # assert_template and other specs
 gem 'rails-controller-testing'
 # bcrypt for encryption of passwords
- gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 # Use Carrierwave for easy uploading and Cloudinary for cloud storage
 gem 'carrierwave'
 # Web service of storing and management of media (images and videos)

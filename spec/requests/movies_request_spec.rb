@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Movies", type: :request do
+RSpec.describe 'Movies', type: :request do
   let!(:movie) { create(:movie) }
   let(:movie_id) { movie.id }
-  
+
   describe 'GET /movies' do
     before { get '/movies' }
 
@@ -38,12 +38,13 @@ RSpec.describe "Movies", type: :request do
   end
 
   describe 'POST /movies' do
-    let(:valid_attributes) { movie.attributes.merge(category: 'Action') }
+    let(:valid_attributes) { movie.attributes.merge(title: Faker::Movie.title, categories: %w[Action Adventure]) }
 
     context 'when the request is valid' do
       before do
         Category.create(name: 'Action')
-        post '/movies', params: valid_attributes
+        Category.create(name: 'Adventure')
+        post '/movies', params: { movie: valid_attributes }
       end
 
       it 'creates new record' do
@@ -51,19 +52,18 @@ RSpec.describe "Movies", type: :request do
       end
 
       it 'renders movies/index with flash[:success] set' do
-        assert_template 'index'
-        expect(flash[:success]).to eq('New Movie successfully created')
+        expect(response).to redirect_to(:movies)
+        expect(flash[:success]).to eq('New Movie was successfully created')
       end
 
-      it 'returns status code 201' do
-        expect(response).to have_http_status(201)
+      it 'returns status code 302' do
+        expect(response).to have_http_status(302)
       end
     end
 
     context 'when the request is invalid' do
       before do
-        Category.create(name: 'Romance')
-        post '/movies', params: { title: 'Green Mile' }
+        post '/movies', params: { movie: { title: 'Green Mile', categories: [] } }
       end
 
       it 'returns status code 422' do
@@ -73,20 +73,20 @@ RSpec.describe "Movies", type: :request do
   end
 
   describe 'PUT /movies/:id' do
-    let(:valid_attributes) { movie.attributes.merge(category: 'Action') }
+    let(:valid_attributes) { movie.attributes.merge(title: Faker::Movie.title, categories: ['Action']) }
 
     context 'when the record exists' do
       before do
-        Movie.find(movie_id).categories << Category.create(name: 'Sci-Fi')
-        put "/movies/#{movie_id}", params: valid_attributes
+        Category.create(name: 'Action')
+        put "/movies/#{movie_id}", params: { movie: valid_attributes }
       end
 
       it 'updates the record' do
         expect(Movie.find(movie_id).categories.first.name).to eq('Action')
       end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 302' do
+        expect(response).to have_http_status(302)
       end
     end
   end
@@ -95,11 +95,11 @@ RSpec.describe "Movies", type: :request do
     before { delete "/movies/#{movie_id}" }
 
     it 'deletes record' do
-      expect(Movie.find(movie_id)).to be_nil
+      expect(Movie.find_by(id: movie_id)).to be_nil
     end
 
-    it 'returns status code 204' do
-      expect(response).to have_http_status(204)
+    it 'returns status code 302' do
+      expect(response).to have_http_status(302)
     end
   end
 end

@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-    render template: 'authorizations/authorization', locals: { form_type: :login }  
+    render template: 'authorizations/authorization', locals: { form_type: :login }
   end
 
   def create
@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
       render template: 'authorizations/authorization', locals: { form_type: :login }, status: 422
     end
   end
+
   def destroy
     session[:user_id] = nil
     redirect_to root_path, notice: 'Logged Out'

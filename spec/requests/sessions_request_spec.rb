@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :request do
-  describe "GET /sign_in" do
+  describe 'GET /sign_in' do
     before { get '/sign_in' }
 
-    it "Renders :new template for sign in form" do
+    it 'Renders :new template for sign in form' do
       assert_template 'authorizations/authorization'
     end
   end
 
-  describe "POST /sign_in" do
+  describe 'POST /sign_in' do
     context 'When User exists and credentials are valid' do
       before do
         User.create(name: 'Tom', email: 'tom@hanks.com', password: '12345678')
-        post '/sign_in', params: { email: 'tom@hanks.com', password: 12345678 } 
+        post '/sign_in', params: { email: 'tom@hanks.com', password: 12_345_678 }
       end
 
       it 'Creates new session' do
@@ -31,7 +31,7 @@ RSpec.describe 'Sessions', type: :request do
 
     context 'When User doesn\'t exist or credentials are invalid' do
       before do
-        post '/sign_in', params: { email: 'Tom', password: '12345' } 
+        post '/sign_in', params: { email: 'Tom', password: '12345' }
       end
 
       it 'Doesn\'t create new session' do
@@ -42,20 +42,20 @@ RSpec.describe 'Sessions', type: :request do
         expect(response).to have_http_status(422)
       end
 
-      it "Renders :new template for sign in form" do
+      it 'Renders :new template for sign in form' do
         assert_template 'authorizations/authorization'
       end
     end
   end
 
-  describe "DELETE /log_out" do
+  describe 'DELETE /log_out' do
     before do
       User.create(name: 'Tom', email: 'tom@hanks.com', password: '12345')
-      post '/sign_in', params: { email: 'tom@hanks.com', password: 12345 } 
-      delete '/logout' 
+      post '/sign_in', params: { email: 'tom@hanks.com', password: 12_345 }
+      delete '/logout'
     end
 
-    it "Empties the session" do
+    it 'Empties the session' do
       expect(session[:user_id]).to be_nil
     end
 

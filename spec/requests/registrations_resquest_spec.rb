@@ -4,19 +4,19 @@ RSpec.describe 'Registrations', type: :request do
   let(:valid_user_attributes) { { name: 'Ben', password: '12345678', email: 'ada@das.com' } }
   let(:invalid_user_attributes) { { name: 'Tom' } }
 
-  describe "GET /sign_up" do
+  describe 'GET /sign_up' do
     before { get '/sign_up' }
 
-    it "Renders :new template for registration form" do
+    it 'Renders :new template for registration form' do
       assert_template 'authorizations/authorization'
     end
   end
 
-  describe "POST /sign_up" do
+  describe 'POST /sign_up' do
     context 'When the request is valid' do
       before do
         @before_count = User.count
-        post '/sign_up', params: { user: valid_user_attributes } 
+        post '/sign_up', params: { user: valid_user_attributes }
       end
 
       it 'Creates new User in database' do
@@ -44,7 +44,7 @@ RSpec.describe 'Registrations', type: :request do
         expect(response).to have_http_status(422)
       end
 
-      it "Renders :new template for registration form" do
+      it 'Renders :new template for registration form' do
         assert_template 'authorizations/authorization'
       end
     end
