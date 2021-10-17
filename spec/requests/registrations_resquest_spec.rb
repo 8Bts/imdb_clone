@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Registrations', type: :request do
-  let(:valid_user_attributes) { { name: 'Ben', password: '123445', email: 'ada@das.com' } }
+  let(:valid_user_attributes) { { name: 'Ben', password: '12345678', email: 'ada@das.com' } }
   let(:invalid_user_attributes) { { name: 'Tom' } }
 
   describe "GET /sign_up" do
     before { get '/sign_up' }
 
     it "Renders :new template for registration form" do
-      assert_template 'registrations/new'
+      assert_template 'authorizations/authorization'
     end
   end
 
@@ -45,7 +45,7 @@ RSpec.describe 'Registrations', type: :request do
       end
 
       it "Renders :new template for registration form" do
-        assert_template 'registrations/new'
+        assert_template 'authorizations/authorization'
       end
     end
   end

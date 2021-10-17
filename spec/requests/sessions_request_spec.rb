@@ -5,15 +5,15 @@ RSpec.describe 'Sessions', type: :request do
     before { get '/sign_in' }
 
     it "Renders :new template for sign in form" do
-      assert_template 'sessions/new'
+      assert_template 'authorizations/authorization'
     end
   end
 
   describe "POST /sign_in" do
     context 'When User exists and credentials are valid' do
       before do
-        User.create(name: 'Tom', email: 'tom@hanks.com', password: '12345')
-        post '/sign_in', params: { email: 'tom@hanks.com', password: 12345 } 
+        User.create(name: 'Tom', email: 'tom@hanks.com', password: '12345678')
+        post '/sign_in', params: { email: 'tom@hanks.com', password: 12345678 } 
       end
 
       it 'Creates new session' do
@@ -43,7 +43,7 @@ RSpec.describe 'Sessions', type: :request do
       end
 
       it "Renders :new template for sign in form" do
-        assert_template 'sessions/new'
+        assert_template 'authorizations/authorization'
       end
     end
   end
