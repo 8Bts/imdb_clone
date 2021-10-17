@@ -7,6 +7,11 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../assets/stylesheets/main.css'
+import '../assets/stylesheets/authorization.css'
+import '../assets/stylesheets/forms.css'
+import '@fortawesome/fontawesome-free/js/all'
 
 Rails.start()
 Turbolinks.start()
