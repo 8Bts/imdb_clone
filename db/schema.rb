@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_10_12_093720) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.decimal "rating"
+    t.integer "rating"
     t.integer "user_id", null: false
     t.integer "movie_id", null: false
     t.datetime "created_at", precision: 6, null: false
