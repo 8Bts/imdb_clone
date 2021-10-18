@@ -1,17 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe 'Votes', type: :request do
-let(:movie) { create(:movie) }
-let(:user) { create(:user) }
+  let(:movie) { create(:movie) }
+  let(:user) { create(:user) }
+
+  def set_session(vars = {})
+    post test_session_path, params: { session_vars: vars }
+    expect(response).to have_http_status(:created)
+
+    vars.each_key do |var|
+      expect(session[var]).to be_present
+    end
+  end
 
   describe 'POST /votes' do
     let(:valid_attributes) { { rating: 10, movie_id: movie.id } }
 
     context 'when the request is valid' do
       before do
-        get log_in_path
-        session[:user_id] = user.id
-        post '/votes', params: { vote: valid_attributes }
+        set_session(user_id: user.id)
+        post '/votes', xhr: true, params: { vote: valid_attributes }
       end
 
       it 'creates new vote record and create association with relevant User and Movie' do
@@ -21,22 +29,8 @@ let(:user) { create(:user) }
         expect(Movie.find(movie.id).votes).to include(vote)
       end
 
-      it 'sets flash[:success]' do
-        expect(flash[:success]).to eq('Vote was successfully submitted')
-      end
-
-      it 'returns status code 302' do
-        expect(response).to have_http_status(302)
-      end
-    end
-
-    context 'when the request is invalid' do
-      before do
-        post '/votes', params: { vote: { rating: 15, movie_id: 100 } }
-      end
-
-      it 'returns status code 422' do
-        expect(response).to have_http_status(422)
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
       end
     end
   end
@@ -46,15 +40,16 @@ let(:user) { create(:user) }
     let(:vote) { Vote.create(rating: 10, user_id: user.id, movie_id: movie.id) }
 
     before do
-      delete "/votes/#{vote.id}"
+      set_session(user_id: user.id)
+      delete "/votes/#{vote.id}", xhr: true
     end
 
     it 'deletes record' do
       expect(Vote.find_by(id: vote.id)).to be_nil
     end
 
-    it 'returns status code 302' do
-      expect(response).to have_http_status(302)
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
     end
   end
 end

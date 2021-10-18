@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  if Rails.env.test?
+    namespace :test do
+      resource :session, only: %i[create]
+    end
+  end
+  
   root 'movies#index'
   resources :movies
   resources :votes, only: [:create, :destroy]
