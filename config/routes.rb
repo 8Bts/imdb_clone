@@ -4,10 +4,11 @@ Rails.application.routes.draw do
       resource :session, only: %i[create]
     end
   end
-  
+
   root 'movies#index'
   resources :movies
   resources :votes, only: [:create, :destroy]
+  resources :categories, path: 'genres', only: [:show, :create, :update, :destroy]
   get 'sign_up', to: 'registrations#new'
   post 'sign_up', to: 'registrations#create'
   get 'sign_in', to: 'sessions#new'

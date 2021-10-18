@@ -48,7 +48,7 @@ RSpec.describe 'Movies', type: :request do
       end
 
       it 'creates new record' do
-        expect(Movie.find(movie_id)).to_not be_nil
+        expect(Movie.find_by(title: valid_attributes[:title])).to_not be_nil
       end
 
       it 'renders movies/index with flash[:success] set' do

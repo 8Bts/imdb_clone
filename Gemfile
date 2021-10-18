@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'rubocop', '>= 1.0', '< 2.0'
 # Bootstrap gem for Rails
 # gem 'bootstrap', '~> 5.1.0'
+# Use friendly identifiers in urls
+gem 'friendly_id', '~> 5.4.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
