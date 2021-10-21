@@ -19,7 +19,7 @@ RSpec.describe 'Votes', type: :request do
     context 'when the request is valid' do
       before do
         set_session(user_id: user.id)
-        post '/votes', xhr: true, params: { vote: valid_attributes }
+        post '/votes', params: valid_attributes
       end
 
       it 'creates new vote record and create association with relevant User and Movie' do
@@ -30,18 +30,17 @@ RSpec.describe 'Votes', type: :request do
       end
 
       it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(201)
       end
     end
   end
 
-  
   describe 'DELETE /votes/:id' do
     let(:vote) { Vote.create(rating: 10, user_id: user.id, movie_id: movie.id) }
 
     before do
       set_session(user_id: user.id)
-      delete "/votes/#{vote.id}", xhr: true
+      delete "/votes/#{vote.id}"
     end
 
     it 'deletes record' do

@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Categories', type: :request do
-let(:category) { Category.create(name: 'Action') }
-let(:category_name) { category.name }
+  let(:category) { Category.create(name: 'Action') }
+  let(:category_name) { category.name }
 
-  describe "GET /genres/:id" do
+  describe 'GET /genres/:id' do
     before { get "/genres/#{category_name}" }
     context 'when the record exists' do
       it 'renders index template of movies' do
@@ -25,7 +25,7 @@ let(:category_name) { category.name }
     end
   end
 
-  describe "POST /genres" do
+  describe 'POST /genres' do
     context 'when the request is valid' do
       before do
         post '/genres', params: { name: 'History' }
@@ -57,7 +57,7 @@ let(:category_name) { category.name }
     end
   end
 
-  describe "PUT /genres/:id" do
+  describe 'PUT /genres/:id' do
     context 'when the record exists and attributes are valid' do
       before do
         put "/genres/#{category_name}", params: { name: 'Drama' }
@@ -74,18 +74,18 @@ let(:category_name) { category.name }
 
     context 'when the record doesn\'t exist or attributes are invalid' do
       it 'Doesn\'t update record when attributes are invalid' do
-        put "/genres/Action", params: { name: 'X' }
+        put '/genres/Action', params: { name: 'X' }
         expect(Category.find_by(name: 'X')).to be_nil
       end
 
       it 'Doesn\'t update record when record not found' do
-        put "/genres/Thriller", params: { name: 'Horror' }
+        put '/genres/Thriller', params: { name: 'Horror' }
         expect(Category.find_by(name: 'Horror')).to be_nil
       end
     end
   end
 
-  describe "DELETE /genres/:id" do
+  describe 'DELETE /genres/:id' do
     before { delete "/genres/#{category_name}" }
 
     it 'deletes record' do
