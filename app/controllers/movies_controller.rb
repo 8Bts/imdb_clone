@@ -1,14 +1,14 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: %i[ show edit update destroy ]
+  before_action :set_movie, only: %i[show edit update destroy]
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    @movies = Movie.includes(:votes).all
+    @genre = 'All'
   end
 
   # GET /movies/1 or /movies/1.json
-  def show
-  end
+  def show; end
 
   # GET /movies/new
   def new
@@ -16,8 +16,7 @@ class MoviesController < ApplicationController
   end
 
   # GET /movies/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /movies or /movies.json
   def create
@@ -31,9 +30,9 @@ class MoviesController < ApplicationController
         render :new, status: :unprocessable_entity
         return
       end
-    end  
+    end
     if @movie.save
-      flash[:success] = "New Movie was successfully created"
+      flash[:success] = 'New Movie was successfully created'
       redirect_to movies_url
     else
       render :new, status: :unprocessable_entity
@@ -52,9 +51,9 @@ class MoviesController < ApplicationController
         render :new, status: :unprocessable_entity
         return
       end
-    end  
+    end
     if @movie.update(movie_params)
-      redirect_to @movie, notice: "Movie was successfully updated."
+      redirect_to @movie, notice: 'Movie was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -63,19 +62,18 @@ class MoviesController < ApplicationController
   # DELETE /movies/1 or /movies/1.json
   def destroy
     @movie.destroy
-    redirect_to movies_url, notice: "Movie was successfully destroyed."
+    redirect_to movies_url, notice: 'Movie was successfully destroyed.'
   end
 
   private
-    def set_movie
-      begin
-        @movie = Movie.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        redirect_to :movies, status: :not_found
-      end
-    end
 
-    def movie_params
-      params.require(:movie).permit(:title, :description, :image)
-    end
+  def set_movie
+    @movie = Movie.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to :movies, status: :not_found
+  end
+
+  def movie_params
+    params.require(:movie).permit(:title, :description, :image)
+  end
 end

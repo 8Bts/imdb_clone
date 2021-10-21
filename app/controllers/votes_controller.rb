@@ -1,33 +1,36 @@
 class VotesController < ApplicationController
   before_action :require_user_logged_in!
+  before_action :set_vote, only: %i[update destroy]
 
   def create
-    movie = Movie.find_by(id: vote_params[:movie_id])
-    if movie
-      @vote = Vote.create(vote_params.merge(user_id: Current.user.id))
-      Current.user.votes << @vote
-      respond_to do |format|
-        format.js
-        format.json { render json: @vote, status: :created }
-        format.html { redirect_to root_path }
-      end
+    movie = Movie.find_by(id: params[:movie_id])
+    @vote = Vote.new(user_id: Current.user.id, movie_id: params[:movie_id], rating: params[:rating])
+    if movie && @vote.save
+      render json: @vote, status: :created
+    else
+      render json: 'Invalid attributes', status: 422
+    end
+  end
+
+  def update
+    @vote.rating = params[:rating]
+    if @vote.save
+      render json: @vote, status: :created
+    else
+    render json: 'Invalid attributes', status: 422
     end
   end
 
   def destroy
-    vote = Vote.find_by(id: params[:id])
-    if vote
-      vote.destroy
-      respond_to do |format|
-        format.js
-        format.html { redirect_to root_path }
-      end
-    end
+    @vote.destroy
+    head :no_content
   end
 
   private
 
-  def vote_params
-    params.require(:vote).permit(:rating, :movie_id)
+  def set_vote
+    @vote = Vote.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: 'Vote not found' , status: :not_found
   end
 end
