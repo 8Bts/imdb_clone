@@ -1,8 +1,17 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show update destroy]
+  before_action :check_admin_level, except: %i[index show]
 
   def show
-    @movies = @category.movies
+    @page = (params[:page]).to_i
+    
+    @page = 1 if @page.nil? or @page.negative?
+    @page = total_pages if @page > total_pages
+    offset = @page * 5 - 5
+  
+    @movies = @category.movies.includes(:votes).offset(offset).limit(5).sort { |a, b| b.rating <=> a.rating }
+    @categories = Category.all
+    @genre = @category.name
     render template: 'movies/index'
   end
 

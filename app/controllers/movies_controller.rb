@@ -1,9 +1,17 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[show edit update destroy]
+  before_action :check_admin_level, except: %i[index show]
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.includes(:votes).all
+    @page = (params[:page]).to_i
+    
+    @page = 1 if @page.nil? or @page.negative?
+    @page = total_pages if @page > total_pages
+    offset = @page * 5 - 5
+  
+    @movies = Movie.includes(:votes).offset(offset).limit(5).sort { |a, b| b.rating <=> a.rating }
+    @categories = Category.all
     @genre = 'All'
   end
 
@@ -36,12 +44,12 @@ class MoviesController < ApplicationController
       redirect_to movies_url
     else
       render :new, status: :unprocessable_entity
-      p @movie.errors.full_messages
     end
   end
 
   # PATCH/PUT /movies/1 or /movies/1.json
   def update
+    @movie.categories.delete_all
     params[:movie][:categories].each do |c|
       category = Category.find_by(name: c)
       if category
@@ -74,6 +82,6 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title, :description, :image)
+    params.require(:movie).permit(:title, :description, :image, :categories)
   end
 end

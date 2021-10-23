@@ -8,7 +8,7 @@ class VotesController < ApplicationController
     if movie && @vote.save
       render json: @vote, status: :created
     else
-      render json: 'Invalid attributes', status: 422
+      render json: "Invalid attributes", status: 422
     end
   end
 

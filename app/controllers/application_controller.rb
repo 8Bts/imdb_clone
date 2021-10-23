@@ -10,4 +10,15 @@ class ApplicationController < ActionController::Base
     # allows only logged in user
     redirect_to sign_in_path, alert: 'You must be signed in' if Current.user.nil?
   end
+
+  def check_admin_level
+    redirect_to sign_in_path, alert: 'Access denied' unless Current.user && Current.user.admin_level > 0
+  end
+
+  def total_pages
+    count = Movie.all.count
+    rem = (count % 5 == 0) ? 0 : 1
+    t_pages = count / 5 + rem
+    t_pages
+  end
 end
