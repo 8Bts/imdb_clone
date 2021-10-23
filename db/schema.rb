@@ -62,9 +62,10 @@ ActiveRecord::Schema.define(version: 2021_10_18_182717) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["movie_id"], name: "index_votes_on_movie_id"
+    t.index ["user_id", "movie_id"], name: "index_votes_on_user_id_and_movie_id", unique: true
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
-  add_foreign_key "votes", "movies"
-  add_foreign_key "votes", "users"
+  add_foreign_key "votes", "movies", on_delete: :cascade
+  add_foreign_key "votes", "users", on_delete: :cascade
 end

@@ -1,0 +1,23 @@
+Category.create([
+  { name: 'Action' },
+  { name: 'Adventure' },
+  { name: 'Animation' },
+  { name: 'Biography' },
+  { name: 'Comedy' },
+  { name: 'Crime' },
+  { name: 'Drama' },
+  { name: 'Family' },
+  { name: 'Fantasy' },
+  { name: 'Film-Noir' },
+  { name: 'History' },
+  { name: 'Horror' },
+  { name: 'Music' },
+  { name: 'Musical' },
+  { name: 'Mystery' },
+  { name: 'Romance' },
+  { name: 'Sci-Fi' },
+  { name: 'Sport' },
+  { name: 'Thriller' },
+  { name: 'War' },
+  { name: 'Western' }
+]) if Category.all.size.zero?
