@@ -4,15 +4,6 @@ RSpec.describe 'Votes', type: :request do
   let(:movie) { create(:movie) }
   let(:user) { create(:user) }
 
-  def set_session(vars = {})
-    post test_session_path, params: { session_vars: vars }
-    expect(response).to have_http_status(:created)
-
-    vars.each_key do |var|
-      expect(session[var]).to be_present
-    end
-  end
-
   describe 'POST /votes' do
     let(:valid_attributes) { { rating: 10, movie_id: movie.id } }
 
