@@ -11,8 +11,20 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../assets/stylesheets/main.css'
 import '../assets/stylesheets/authorization.css'
 import '../assets/stylesheets/forms.css'
+import '../assets/stylesheets/movies.css'
 import '@fortawesome/fontawesome-free/js/all'
+
+import nav from './nav'
+import rating from './rating'
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+document.addEventListener('turbolinks:load', (event) => {
+  nav.setAuthDropListiner()
+  rating.setRateBoxListeners()
+})
+
+

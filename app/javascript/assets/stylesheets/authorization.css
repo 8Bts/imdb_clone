@@ -1,4 +1,4 @@
-.cont {
+.auth-cont {
   height: 100%;
 }
 
@@ -33,13 +33,13 @@
   color: #c40000;
 }
 
-.main {
+.auth-main {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
-.main-cont {
+.auth-main-cont {
   width: 350px;
   border-radius: 4px;
   font-family: Arial, Helvetica, sans-serif;
@@ -62,11 +62,11 @@
   content: "";
 }
 
-.footer-cont {
+.auth-footer-cont {
   text-align: center;
 }
 
-.footer-cont span {
+.auth-footer-cont span {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
   line-height: 1.465;
