@@ -1,0 +1,11 @@
+<div>
+  <nav aria-label="Movies result">
+    <ul class="pagination float-end">
+      <li class="<%= prev_class %>"><a class="page-link" href=<%= "/movies?page=#{page-1}" %>>Prev</a></li>
+      <% pages.each do |page|  %>
+        <li class="<%="page-item #{page[:p_class]}"%>"><a class="page-link" href=<%= "/movies?page=#{page[:p_index]}" %>><%= page[:p_index] %></a></li>
+      <% end %>
+      <li class="<%= next_class %>"><a class="page-link" href=<%= "/movies?page=#{page+1}" %>>Next</a></li>
+    </ul>
+  </nav>
+</div>
