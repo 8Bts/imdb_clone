@@ -101,6 +101,8 @@ GEM
     diff-lcs (1.4.4)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    down (5.2.4)
+      addressable (~> 2.8)
     erubi (1.10.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
@@ -306,6 +308,7 @@ DEPENDENCIES
   carrierwave
   cloudinary
   database_cleaner
+  down
   factory_bot_rails (~> 4.0)
   faker
   figaro

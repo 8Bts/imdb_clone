@@ -1,17 +1,30 @@
 <%= form_with(model: movie) do |form| %>
   <% if movie.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
-
-      <ul>
-        <% movie.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
+    <%= render 'shared/error_box', messages: movie.errors.full_messages %>
   <% end %>
 
+  <div class="form-group my-3">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group my-3">
+    <%= form.label :description %>
+    <%= form.text_area :description, { class: 'form-control', rows: 6, required: true } %>
+  </div>
+
+  <div class="form-group my-4 overflow-hidden">
+    <%= form.label :image, 'Select poster (ideally 285x421)', class: 'mb-3' %>
+    <%= form.file_field :image, class: 'form-control-file', required: form_type == 'new' %>
+  </div>
+
+  <div class="form-group my-4">
+    <%= form.label :categories %>
+    <%= form.collection_select(:categories, Category.all, :name, :name, { include_hidden: false, selected: movie.categories.collect {|c| c.name } }, { class: 'form-control', multiple: true, required: true } )%>
+  </div>
+
   <div class="actions">
-    <%= form.submit %>
+    <button type="submit" class="btn btn-success btn-block mb-2 me-4">Publish</button>
+    <%= link_to 'Back', form_type == 'new' ? movies_path : movie_path(movie.id) %>
   </div>
 <% end %>

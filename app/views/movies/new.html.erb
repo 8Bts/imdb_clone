@@ -1,5 +1,13 @@
-<h1>New Movie</h1>
+<div>
+  <%= render 'shared/navbar' %>
+  <main>
+    <div class="movie-form-main">
+      <div class="movie-form">
+        <h3 class="text-center mb-4">New Movie</h3>
+        <%= render 'form', movie: @movie, form_type: 'new' %>
+      </div>
+    </div>
+  </main>
+  <%= render 'shared/footer' %>
+</div>
 
-<%= render 'form', movie: @movie %>
-
-<%= link_to 'Back', movies_path %>

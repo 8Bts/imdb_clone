@@ -1,25 +1,97 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Movies</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= link_to 'Show', movie %></td>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Movie', new_movie_path %>
+<div class="movies-cont">
+  <%= render 'shared/navbar' %>
+  <main class="movies-main">
+    <div class="main-back">
+      <div class="container">
+        <div class="row">
+          <div class="col-8 movies-left">
+            <div class="m-list">
+              <div class="m-list-header">
+                <h1 class="genre-name"><%= @genre %> Movies</h1>
+                <%= ap_movies %>
+              </div>
+              <hr class="top-hr">
+              <div class="m-list-pages">
+                <%= pagination(@page) %>
+              </div>
+              <div class="m-list-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="column-1"></th>
+                      <th class="column-2">Rank & Title</th>
+                      <th class="column-3">IMDb Rating</th>
+                      <th class="column-4">Your Rating</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @movies.each_with_index do |movie, idx| %>
+                      <tr>
+                        <td>
+                          <div class="row-column-1">
+                            <a class="movie-img-link" href=<%= movie_path(movie.id) %>>
+                              <img class="movie-image" src=<%= movie.image %> alt=<%= movie.title %>>
+                            </a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="row-column-2">
+                            <span class="movie-title">
+                              <%= "#{idx+1}. " %> 
+                              <%= link_to "#{movie.title}", movie_path(movie.id) %>
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="row-column-3">
+                            <i class="fas fa-star fa-lg imdb-star"></i>
+                            <span><%= movie.rating %></span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="row-column-4">
+                            <%= my_vote(movie.id) %>
+                            <div class="rate-box d-none" data-row-id=<%= movie.id %>>
+                              <span class="rb-left">
+                                <button class="rate-btn btn-unrate" data-movie-id=<%= movie.id %>>
+                                  <i class="fas fa-times-circle unrate-icon"></i>
+                                </button>
+                              </span>
+                              <span class="rb-right">
+                                <% 10.times do |idx| %>
+                                  <button class="rate-btn btn-rate" data-movie-id=<%= movie.id %> data-rating=<%= idx+1 %>>
+                                  <i class="far fa-star fa-lg rate-star user-star"></i>
+                                  </button>
+                                <% end %>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 movies-right">
+            <div>
+              <h3 class="genres-h">Top Rated Movies by Genre</h3>
+            </div>
+            <div class="genre-list">
+              <div>
+                <%= link_to 'All', root_path %>
+              </div>
+              <% @categories.each do |genre| %>
+                <div>
+                  <%= link_to genre.name, category_path(genre.name) %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%= render 'shared/footer' %>
+</div>

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root 'movies#index'
   resources :movies
-  resources :votes, only: [:create, :destroy]
+  resources :votes, only: [:create, :update, :destroy]
   resources :categories, path: 'genres', only: [:show, :create, :update, :destroy]
   get 'sign_up', to: 'registrations#new'
   post 'sign_up', to: 'registrations#create'

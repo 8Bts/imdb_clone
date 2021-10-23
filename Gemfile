@@ -8,7 +8,7 @@ gem 'figaro'
 gem 'rails-controller-testing'
 # bcrypt for encryption of passwords
 gem 'bcrypt', '~> 3.1.7'
-# Use Carrierwave for easy uploading and Cloudinary for cloud storage
+# Use Carrierwave for easy uploading
 gem 'carrierwave'
 # Web service of storing and management of media (images and videos)
 gem 'cloudinary'
@@ -34,6 +34,8 @@ gem 'rubocop', '>= 1.0', '< 2.0'
 # gem 'bootstrap', '~> 5.1.0'
 # Use friendly identifiers in urls
 gem 'friendly_id', '~> 5.4.0'
+# Download images for seeding Movies
+gem 'down'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
