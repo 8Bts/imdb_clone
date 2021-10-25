@@ -242,6 +242,16 @@ tr:nth-child(even) {
   right: 5em;
 }
 
+.movie-page-cont {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+
+.movie-page-main {
+  flex-grow: 3;
+}
+
 .main-footer-inner {
   background-color: #121212;
   padding: 3em 0;
