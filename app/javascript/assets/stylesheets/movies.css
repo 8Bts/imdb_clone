@@ -1,9 +1,11 @@
 .movies-main {
-  overflow-y: hidden;
+  flex-grow: 3;
 }
 
 .movies-cont {
   height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .main-nav {
