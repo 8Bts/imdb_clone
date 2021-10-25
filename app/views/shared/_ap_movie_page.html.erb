@@ -2,4 +2,7 @@
   <%= link_to edit_movie_path(movie_id) do %>
     <button class="btn btn-outline-info btn-sm">Edit Movie</button>
   <% end %>
+  <%= link_to movie_path(movie_id), { method: 'delete', data: { confirm: 'Are sure to delete this movie?' } } do %>
+    <button class="btn btn-outline-danger btn-sm">Delete Movie</button>
+  <% end %>
 </div>

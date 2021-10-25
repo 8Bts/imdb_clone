@@ -8,7 +8,7 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path, notice: 'Successfully created account'
+      redirect_to root_path
     else
       render template: 'authorizations/authorization', locals: { form_type: :register }, status: 422
     end

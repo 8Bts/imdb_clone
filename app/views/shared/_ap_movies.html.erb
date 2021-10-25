@@ -2,4 +2,6 @@
   <%= link_to new_movie_path do %>
     <button class="btn btn-outline-success btn-sm">New Movie</button>
   <% end %>
+  <span class="text-success ps-4"><%= flash[:success] %></span>
+  <span class="text-danger ps-4"><%= alert %></span>
 </div>

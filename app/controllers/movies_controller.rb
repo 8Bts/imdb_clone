@@ -39,7 +39,7 @@ class MoviesController < ApplicationController
       end
     end
     if @movie.save
-      flash[:success] = 'New Movie was successfully created'
+      flash[:success] = "#{movie_params[:title]} was successfully created!"
       redirect_to movies_url
     else
       render :new, status: :unprocessable_entity
@@ -60,7 +60,7 @@ class MoviesController < ApplicationController
       end
     end
     if @movie.update(movie_params)
-      redirect_to @movie, notice: 'Movie was successfully updated.'
+      redirect_to @movie, notice: 'Movie was successfully updated!'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -69,7 +69,7 @@ class MoviesController < ApplicationController
   # DELETE /movies/1 or /movies/1.json
   def destroy
     @movie.destroy
-    redirect_to movies_url, notice: 'Movie was successfully destroyed.'
+    redirect_to movies_url, alert: "#{@movie.title} was successfully destroyed!"
   end
 
   private

@@ -59,7 +59,7 @@ RSpec.describe 'Movies', type: :request do
 
       it 'renders movies/index with flash[:success] set' do
         expect(response).to redirect_to(:movies)
-        expect(flash[:success]).to eq('New Movie was successfully created')
+        expect(flash[:success]).to eq("#{valid_attributes[:title]} was successfully created!")
       end
 
       it 'returns status code 302' do
