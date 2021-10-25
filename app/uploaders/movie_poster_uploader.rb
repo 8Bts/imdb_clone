@@ -1,8 +1,8 @@
 class MoviePosterUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
 
-  process resize_to_fill: [285,421]
-  process :convert => 'jpg'
+  process resize_to_fill: [285, 421]
+  process convert: 'jpg'
   # Choose what kind of storage to use for this uploader:
   # storage :file
   # storage :fog

@@ -18,37 +18,41 @@ module MoviesHelper
   end
 
   def ap_movies
-    render 'shared/ap_movies' if Current.user && Current.user.admin_level > 0
+    render 'shared/ap_movies' if Current.user&.admin_level&.positive?
   end
 
   def ap_movie_page(movie_id)
-    render partial: 'shared/ap_movie_page', locals: { movie_id: movie_id } if Current.user && Current.user.admin_level > 0
+    if Current.user&.admin_level&.positive?
+      render partial: 'shared/ap_movie_page',
+             locals: { movie_id: movie_id }
+    end
   end
 
   def total_pages
     count = Movie.all.count
-    rem = (count % 5 == 0) ? 0 : 1
-    t_pages = count / 5 + rem
-    t_pages
+    rem = (count % 5).zero? ? 0 : 1
+    (count / 5) + rem
   end
 
   def pagination(current_page)
     pages = []
     total = total_pages
     return if total == 1
-    
-    _from = current_page - (current_page % 5) + 1
-    _to = _from + 4  
 
-    n_class = (current_page == total) ? 'page-item disabled' : 'page-item'
-    p_class = (current_page == 1) ? 'page-item disabled' : 'page-item'
+    _from = current_page - (current_page % 5) + 1
+    _to = _from + 4
+
+    n_class = current_page == total ? 'page-item disabled' : 'page-item'
+    p_class = current_page == 1 ? 'page-item disabled' : 'page-item'
 
     (_from.._to).each do |v|
       break if v > total
-      _class = (current_page == v) ? 'active' : ''
+
+      _class = current_page == v ? 'active' : ''
       pages.push({ p_class: _class, p_index: v })
     end
 
-    render partial: 'shared/pagination', locals: { pages: pages, page: current_page, next_class: n_class, prev_class: p_class }
+    render partial: 'shared/pagination',
+           locals: { pages: pages, page: current_page, next_class: n_class, prev_class: p_class }
   end
 end

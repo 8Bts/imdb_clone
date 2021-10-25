@@ -16,9 +16,7 @@
 RSpec.configure do |config|
   # Clean test uploads after each test
   config.after(:each) do
-    if Rails.env.test? || Rails.env.cucumber?
-      FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
-    end
+    FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"]) if Rails.env.test? || Rails.env.cucumber?
   end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

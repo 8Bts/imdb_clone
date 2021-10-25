@@ -16,7 +16,8 @@ class Movie < ApplicationRecord
     if votes_count.positive?
       result = (sum.to_f / votes_count).ceil(1)
       return result if result != 10
-      10 
+
+      10
     else
       0
     end

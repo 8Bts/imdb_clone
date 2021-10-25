@@ -8,7 +8,7 @@ class VotesController < ApplicationController
     if movie && @vote.save
       render json: @vote, status: :created
     else
-      render json: "Invalid attributes", status: 422
+      render json: 'Invalid attributes', status: 422
     end
   end
 
@@ -17,7 +17,7 @@ class VotesController < ApplicationController
     if @vote.save
       render json: @vote, status: :created
     else
-    render json: 'Invalid attributes', status: 422
+      render json: 'Invalid attributes', status: 422
     end
   end
 
@@ -31,6 +31,6 @@ class VotesController < ApplicationController
   def set_vote
     @vote = Vote.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: 'Vote not found' , status: :not_found
+    render json: 'Vote not found', status: :not_found
   end
 end

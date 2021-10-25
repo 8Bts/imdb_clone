@@ -4,11 +4,11 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @page = (params[:page]).to_i
-    
+    @page = params[:page].to_i
+
     @page = 1 if @page.zero? or @page.negative?
     @page = total_pages if @page > total_pages
-    offset = @page * 5 - 5
+    offset = (@page * 5) - 5
     @movies = Movie.includes(:votes).offset(offset).limit(5).sort { |a, b| b.rating <=> a.rating }
     @categories = Category.all
     @genre = 'All'

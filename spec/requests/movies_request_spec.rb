@@ -4,7 +4,7 @@ RSpec.describe 'Movies', type: :request do
   let!(:movie) { create(:movie) }
   let(:movie_id) { movie.id }
   let(:user) { create(:user) }
- 
+
   describe 'GET /movies' do
     before { get '/movies' }
 
@@ -39,9 +39,12 @@ RSpec.describe 'Movies', type: :request do
   end
 
   describe 'POST /movies' do
-    file = Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/test.jpg')), 'image/jpeg')
-    let(:valid_attributes) { movie.attributes.merge(title: Faker::Movie.title, categories: %w[Action Adventure], image: file) }
-    
+    file = Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/test.jpg')),
+                                        'image/jpeg')
+    let(:valid_attributes) do
+      movie.attributes.merge(title: Faker::Movie.title, categories: %w[Action Adventure], image: file)
+    end
+
     context 'when the request is valid' do
       before do
         set_session(user_id: user.id)
@@ -97,7 +100,7 @@ RSpec.describe 'Movies', type: :request do
   end
 
   describe 'DELETE /movies/:id' do
-    before do 
+    before do
       set_session(user_id: user.id)
       delete "/movies/#{movie_id}"
     end
