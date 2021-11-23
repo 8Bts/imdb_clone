@@ -1,0 +1,90 @@
+.l-padding {
+  padding: 6px 8px;
+}
+
+.form-h {
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.auth-form-cont label {
+  display: block;
+  padding-left: 2px;
+  padding-bottom: 2px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 19px;
+  color: #111;
+}
+
+.auth-form-cont input {
+  color: #111;
+  border: 1px solid #a6a6a6;
+  border-top-color: #949494;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(255,255,255,.5),0 1px 0 rgba(0,0,0,.07) inset;
+  height: 31px;
+  padding: 3px 7px;
+  line-height: normal;
+  width: 100%;
+  margin-bottom: 0.8em;
+  font-size: 13px;
+}
+
+.btn-submit {
+  background: linear-gradient(to bottom,#f7dfa5,#f0c14b);
+  color: #111;
+  font-size: 13px;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(to bottom,#f5d78e,#eeb933);
+}
+
+.d-border {
+  border-top: 1px solid #e7e7e7;
+  width: 100%;
+}
+
+.d-span {
+  white-space: nowrap;
+  color: #767676;
+  font-size: 12px;
+}
+
+.form-footer {
+  font-size: 13px;
+}
+
+.signup-btn {
+  display: inline-block;
+  height: 29px;
+  width: 100%;
+  box-shadow: 0 1px 0 rgba(255,255,255,.6) inset;
+  color: #111;
+  background: linear-gradient(to bottom,#f7f8fa,#e7e9ec);
+  border-radius: 3px;
+  border-color: #adb1b8 #a2a6ac #8d9096;
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  line-height: 29px;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.movie-form-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #c5c4c0;
+}
+
+.movie-form {
+  background-color: #f8f8f8;
+  width: 30%;
+  padding: 2em;
+  margin: 3em 0;
+  border-radius: 0.5rem;
+}

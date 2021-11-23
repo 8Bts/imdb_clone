@@ -1,0 +1,10 @@
+<div class="user-box-logged">
+  <i class="fas fa-user-circle fa-lg user-icon"></i>
+  <span class="sign-user" ><%= Current.user.name %></span>
+  <span class="drop-icon">&#x25BC;</span>
+  <ul class="auth-drop-menu d-none">
+    <li class="auth-drop-item">
+      <%= link_to "Sign out", logout_path, method: :delete %>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,31 @@
+<div class="auth-form-cont">
+  <h1 class="form-h mb-3" >Create account</h1>
+  <%= form_with model: @user, url: sign_up_path do |f| %>
+    <div>
+      <%= f.label 'Your name' %>
+      <%= f.text_field :name, required: true %>
+    </div>
+    <div>
+      <%= f.label 'email' %>
+      <%= f.text_field :email, required: true %>
+    </div>
+    <div>
+      <%= f.label 'password' %>
+      <%= f.password_field :password, required: true, minlength: 8, placeholder: 'At least 8 characters' %>
+    </div>
+    <div>
+      <%= f.label 'Re-enter_password' %>
+      <%= f.password_field :password_confirmation, required: true, minlength: 8 %>
+    </div>
+    <div>
+      <%= f.submit 'Create your IMDb account', { class: 'btn-submit' } %>
+    </div>
+    <div class="divider"></div>
+    <div class="form-footer">
+      <span>Already have an account?</span>
+      <%= link_to log_in_path do %>
+        Sign-In
+      <% end %>
+    </div>
+<% end %>
+</div>
